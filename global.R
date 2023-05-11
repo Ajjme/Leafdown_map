@@ -20,19 +20,20 @@ ca_cities <- readRDS( file = "shapes/ca_cities.rds")
 usa1 <- readRDS("shapes/usa1.RDS")
 usa2 <- readRDS("shapes/usa2.RDS") #(counties)shapes/usa2.RDS
 ### does not work
-spdfs_list <- list(usa1, usa2, ca_cities)
+spdfs_list <- list(usa1, usa2, ca_cities, ca_cities)
 #for joining need to tell it NAME_2 = COUNTY
 
 
 ### works with below mapping
 #spdfs_list <- list(usa1, usa2, usa2)
 
+### editing to add in  my custome data ----------------------
 ### combining stations data with mine Seems to be the only way I can get it to work
 df_stations_monthly <- get_data()  %>%
-  distinct(County, .keep_all = TRUE) %>%
-  select(-State)
+  distinct(County, .keep_all = TRUE)  %>%
+  select(-State, -latitude, -longitude)
 # Joining Information on Contra costa county cities -----
-df_ccc_scores_only <- readRDS("helper/all_scores.RDS") %>%
+df_ccc_scores_only <- readRDS("helper/all_scores_geo.RDS") %>%
   mutate(County = "Contra Costa",
          State = "California",
          ev_per_new_vehicle_scaled = as.numeric(ev_per_new_vehicle_scaled),

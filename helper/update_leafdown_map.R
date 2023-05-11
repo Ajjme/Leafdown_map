@@ -25,7 +25,7 @@ update_leafdown_map <- function(my_leafdown, input, df_ccc_scores, sel_data_befo
     setView(-95, 39, 4) %>% # use later to change start
     my_leafdown$keep_zoom(input) %>%
     addLegend(
-      pal = colorNumeric(color_ramp_blue_red, new_data$ev_per_new_vehicle_scaled, na.color = NA),
+      pal = colorNumeric(color_ramp_green_grey, new_data$ev_per_new_vehicle_scaled, na.color = NA),
       values = new_data$ev_per_new_vehicle_scaled,
       title = "Average EV Score",
       labFormat = labelFormat(suffix = "Percent"),
@@ -33,19 +33,19 @@ update_leafdown_map <- function(my_leafdown, input, df_ccc_scores, sel_data_befo
       layerId = "legend"
     )
 
- # if (curr_map_level == 4) {
- #   my_leafdown$deactivate_shape_selection()
- #   markers <- avg_temp_per_displ_marker(df_ccc_scores, sel_data_before_drilldown)
- #   map <- map %>%
- #     addGlPoints(
- #       data = st_as_sf(markers, coords = c("longitude", "latitude")),
- #       label = paste("Station: ", markers$city),
- #       fillOpacity = 1,
- #       radius = 30,
- #       fillColor = colorNumeric(color_ramp_blue_red, markers$ev_per_new_vehicle_scaled)(markers$ev_per_new_vehicle_scaled),
- #       layerId = "points"
- #     )
- # }
+ if (curr_map_level == 4) {
+   my_leafdown$deactivate_shape_selection()
+   markers <- avg_temp_per_displ_marker(df_ccc_scores, sel_data_before_drilldown)
+   map <- map %>%
+     addGlPoints(
+       data = st_as_sf(markers, coords = c("longitude", "latitude")),
+       label = paste("City: ", markers$city),
+       fillOpacity = 1,
+       radius = 30,
+       fillColor = colorNumeric(color_ramp_green_grey, markers$ev_per_new_vehicle_scaled)(markers$ev_per_new_vehicle_scaled),
+       layerId = "points"
+     )
+ }
 
   map
 
