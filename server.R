@@ -1,6 +1,6 @@
 
 server <- function(input, output) {
-  my_leafdown <- Leafdown$new(spdfs_list, "leafdown", input, join_map_levels_by = c("GID_0" = "GID_0", "GID_1" = "GID_1", "NAME_2" = "COUNTY")
+  my_leafdown <- Leafdown$new(spdfs_list, "leafdown", input, join_map_levels_by = c("GID_0" = "GID_0", "NAME_2" = "COUNTY")
   )
   active_marker_ids <- NULL
   markers <- NULL
